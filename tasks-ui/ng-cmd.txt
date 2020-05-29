@@ -1,0 +1,10 @@
+ng new tasks-ui
+ng g service task
+ng g c tasks-add
+ng g c tasks-list
+npm install ngx-bootstrap bootstrap --save
+npm install ajv --save
+npm install jquery --save
+npm install popper.js --save #save adds dependency to project
+npm update #updates angular-dependencies
+*add bootstrap, jquery, popper.js to angular.json
