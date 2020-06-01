@@ -53,4 +53,9 @@ public class TaskDTO {
 	public void settUpdated(Timestamp tUpdated) {
 		this.tUpdated = tUpdated;
 	}
+	
+	@Override
+	public String toString() {
+		return "{ taskId: " + taskId + ", taskName: " + taskName + ", dueDate: " + dueDate + " }";
+	}
 }

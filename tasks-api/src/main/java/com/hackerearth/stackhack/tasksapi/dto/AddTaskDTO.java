@@ -26,4 +26,9 @@ public class AddTaskDTO {
 	public void setDueDate(Date dueDate) {
 		this.dueDate = dueDate;
 	}
+	
+	@Override
+	public String toString() {
+		return "{ taskName: " + taskName + ", dueDate: " + dueDate + " }";
+	}
 }
