@@ -1,3 +1,11 @@
-<p>
-  tasks-add works!
-</p>
+<div class="task-add">
+    <mat-form-field class="task-input-width">
+        <input matInput placeholder="Task Name"  [(ngModel)]="taskName">
+    </mat-form-field>
+    <mat-form-field class="task-date-width">
+        <input matInput [matDatepicker]="dueDatePicker" placeholder="Due Date" [min]="currentDate" [(ngModel)]="dueDate">
+        <mat-datepicker-toggle matSuffix [for]="dueDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #dueDatePicker></mat-datepicker>
+    </mat-form-field>
+    <button mat-raised-button class="add-button" (click)="onSubmit()">Add</button>
+</div>

@@ -1,0 +1,6 @@
+-create tasks-db-schema
+-create task table script with dummy data
+-create tasks-api using spring-boot
+-create tasks-ui angular project
+-add bootstrap to tasks-ui
+-merge task-add, task-list to task component
