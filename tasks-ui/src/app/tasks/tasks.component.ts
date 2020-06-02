@@ -11,6 +11,7 @@ import { MatTableDataSource } from '@angular/material';
 export class TasksComponent implements OnInit {
 
   currentDate: Date = new Date();
+  taskNameInvalid: boolean = false;
   taskName: string = "";
   dueDate: Date = new Date();
   taskList: Task[];
@@ -41,16 +42,17 @@ export class TasksComponent implements OnInit {
     if(this.validate(newTask))
       this.save(newTask);
     else {
-      console.error('not valid');
+      console.error('onSubmit: taskName not valid');
     }
   }
 
   validate(newTask: Task): boolean {
     // console.log('task-add: validate', newTask);
     let res: boolean = false;
-    if(newTask.taskName != '')
-      if(newTask.dueDate != null)
+    if(newTask.dueDate != null)
+      if(newTask.taskName != '')
         res = true;
+    this.taskNameInvalid = !res;
     return res;
   }
 

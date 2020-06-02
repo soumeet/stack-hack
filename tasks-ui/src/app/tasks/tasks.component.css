@@ -23,6 +23,12 @@
 table {
     width: 100%;
 }
+
+th.mat-header-cell {
+    font-weight: bolder;
+    color: black;
+}
+
 .task-list {
     margin: 5%;
     width: 90%;
@@ -35,3 +41,16 @@ table {
 .task-list-date {
     width: 35%;
 }
+
+::ng-deep .task-invalid.mat-form-field.mat-focused .mat-form-field-label {
+    color: #f44336 !important;
+}
+
+::ng-deep .task-invalid .mat-form-field-underline {
+    background-color: #f44336 !important;
+} 
+
+::ng-deep .task-invalid .mat-form-field-ripple {
+    background-color: #f44336 !important;;
+}
+
