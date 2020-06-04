@@ -9,18 +9,18 @@ import { Observable } from 'rxjs';
 })
 export class TaskService {
 
-  contextPath = environment.baseUrl + 'task';
+  contextPath = environment.baseUrl;
   constructor(private http: HttpClient) { }
 
   getTasks() {
-    let url = this.contextPath + '/all';
+    let url = this.contextPath + 'all';
     console.log('task.service:', url);
     return this.http.get(url);
   }
 
   addTask(newTask: Task) {
     let result: any;
-    let url = this.contextPath + '/add';
+    let url = this.contextPath + 'add';
     console.log('task.service:', url);
     return this.http.post(url, newTask);
   }
