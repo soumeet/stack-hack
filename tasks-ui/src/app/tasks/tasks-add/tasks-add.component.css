@@ -1,0 +1,21 @@
+.task-add {
+    margin: 5%;
+    /* min-width: 150px; */
+    /* max-width: 500px; */
+    width: 90%;
+}
+  
+.task-input-width {
+    padding-left: 5px;
+    width: 50%;
+}
+
+.task-date-width {
+    padding-left: 5px;
+    width: 30%;
+}
+
+.add-button {
+    margin-left: 10px;
+    width: 10%;
+}

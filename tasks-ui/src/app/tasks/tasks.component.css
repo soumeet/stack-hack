@@ -1,0 +1,52 @@
+#task-add, #task-list {
+    margin: 5%;
+    width: 90%;
+}
+  
+.col-6, .col-4, .col-2 {
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.task-input-width {
+    width: 100%;
+}
+
+.task-date-width {
+    width: 100%;
+}
+
+.add-button {
+    margin-top: 5px;
+    width: 100%;
+}
+
+table {
+    width: 100%;
+}
+
+th.mat-header-cell {
+    font-weight: bolder;
+    color: black;
+}
+
+.task-list-name {
+    width: 65%;
+}
+
+.task-list-date {
+    width: 35%;
+}
+
+::ng-deep .task-invalid.mat-form-field.mat-focused .mat-form-field-label {
+    color: #f44336 !important;
+}
+
+::ng-deep .task-invalid .mat-form-field-underline {
+    background-color: #f44336 !important;
+} 
+
+::ng-deep .task-invalid .mat-form-field-ripple {
+    background-color: #f44336 !important;;
+}
+
