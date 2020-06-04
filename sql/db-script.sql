@@ -14,25 +14,30 @@ CREATE DATABASE "stack-hack"
 COMMENT ON DATABASE "stack-hack"
     IS 'stack-hack database';
 
-DROP TABLE task;
+CREATE SCHEMA v2;
 
-CREATE TABLE task(
+DROP TABLE v2.task;
+
+CREATE TABLE v2.task(
 	task_id SERIAL PRIMARY KEY,
 	task_name VARCHAR(255) NOT NULL,
 	due_date DATE NOT NULL DEFAULT CURRENT_DATE,
+	label_code INTEGER NOT NULL DEFAULT 4,
+	status_code INTEGER NOT NULL DEFAULT 0,
 	t_created TIMESTAMP,
 	t_updated TIMESTAMP
 );
+
 --insert sql
-INSERT INTO task(task_name, due_date, t_created, t_updated) 
-VALUES('task_name0', '2020-05-30', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
---insert sql without duedate
-INSERT INTO task(task_name, t_created, t_updated) 
+INSERT INTO v2.task(task_name, due_date, label_code, status_code, t_created, t_updated) 
+VALUES('task_name0', '2020-06-04', 4, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+--insert sql without duedate, label_code, status_code
+INSERT INTO v2.task(task_name, t_created, t_updated) 
 VALUES('task_name1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 --insert sql without duedate, next day default
-INSERT INTO task(task_name, due_date, t_created, t_updated) 
+INSERT INTO v2.task(task_name, due_date, t_created, t_updated) 
 VALUES('task_name2', CURRENT_DATE+1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 --update sql
-UPDATE tasks
-SET task_name = 'TASK_NAME', due_date = 'DUE', t_updated = CURRENT_TIMESTAMP
-WHERE task_id = 'TASK_ID'
+UPDATE v2.task
+SET task_name = '<TASK_NAME>', due_date = '<DUE_DATE>', label_code = '<LABEL_CODE>', status_code = '<STATUS_CODE>', t_updated = CURRENT_TIMESTAMP, 
+WHERE task_id = '<TASK_ID>'
