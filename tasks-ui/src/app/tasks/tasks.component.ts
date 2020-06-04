@@ -86,6 +86,7 @@ export class TasksComponent implements OnInit {
       res => {
         // console.log('response', res);
         let addedTask = res as Task;
+        console.log('app-task save: added taskId:', addedTask.taskId);
         this.addTask(addedTask);
         this.resetForm();
       }   
@@ -93,10 +94,11 @@ export class TasksComponent implements OnInit {
   }
 
   update(updateTask: Task) {
-    console.log('task: update', updateTask);
+    // console.log('task: update', updateTask);
     this.taskService.updateTask(updateTask).subscribe(
       res => {
-        console.log('response', res);
+        // console.log('response', res);
+        console.log('app-task update: updated taskId:', updateTask.taskId);
       },
       err => {
         console.log('response', err);
