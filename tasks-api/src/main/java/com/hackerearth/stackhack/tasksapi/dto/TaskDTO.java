@@ -3,8 +3,6 @@ package com.hackerearth.stackhack.tasksapi.dto;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-import javax.persistence.Column;
-
 public class TaskDTO {
 
 	private Integer taskId;
