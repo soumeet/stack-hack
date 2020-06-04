@@ -45,13 +45,13 @@ public class TaskController {
 		return taskList;
 	}
 	
-	@GetMapping(path="/{taskId}", produces="application/json")
+	/*@GetMapping(path="/{taskId}", produces="application/json")
 	public TaskDTO getTask(@PathVariable("taskId") Integer taskId){
 		log.info("getTask: taskId: " + taskId);
 		Task task = taskRepository.getOne(taskId);
 		log.info("getTask: task: " + task.toString());
 		return taskMapper.map(task);
-	}
+	}*/
 	
 	@PostMapping(path="/add", produces="application/json")
 	public TaskDTO addTask(@RequestBody AddTaskDTO addTaskDTO) {
