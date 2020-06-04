@@ -2,6 +2,6 @@ export interface Task {
     taskId: number;
     taskName: string;
     dueDate: Date;
-    // labelCode: number;
-    // statusCode: number;
+    labelCode: number;
+    statusCode: number;
 }

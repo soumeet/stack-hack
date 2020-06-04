@@ -24,4 +24,11 @@ export class TaskService {
     console.log('task.service:', url);
     return this.http.post(url, newTask);
   }
+
+  updateTask(updateTask: Task) {
+    let result: any;
+    let url = this.contextPath + 'update';
+    console.log('task.service:', url);
+    return this.http.post(url, updateTask);
+  }
 }

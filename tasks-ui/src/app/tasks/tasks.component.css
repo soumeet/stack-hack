@@ -8,7 +8,11 @@
     padding-left: 5px;
 }
 
-.task-input-width {
+.task-name-width {
+    width: 100%;
+}
+
+.task-label-width {
     width: 100%;
 }
 
@@ -31,11 +35,19 @@ th.mat-header-cell {
 }
 
 .task-list-name {
-    width: 65%;
+    width: 50%;
+}
+
+.task-list-label {
+    width: 15%;
+}
+
+.task-list-status {
+    width: 15%;
 }
 
 .task-list-date {
-    width: 35%;
+    width: 20%;
 }
 
 ::ng-deep .task-invalid.mat-form-field.mat-focused .mat-form-field-label {
