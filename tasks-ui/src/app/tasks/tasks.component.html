@@ -26,6 +26,45 @@
       <button mat-raised-button class="add-button" (click)="onSubmit()">Add</button>
     </div>
   </div>
+  <div class="row" id="task-search">
+    <div class="col-md-4 col-4">
+      <mat-form-field>
+        <mat-label>Filter Type</mat-label>
+        <mat-select [(ngModel)]="filterType"> 
+          <mat-option *ngFor="let item of filterTypes | keyvalue" [value]="item.key">
+            {{ item.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-md-8 col-8" [ngSwitch]="filterType">
+      <mat-form-field *ngSwitchCase="'taskName'">
+        <mat-label>{{ filterTypes[filterType] }}</mat-label>
+        <input matInput (keyup)="applyFilter($event, filterType)" placeholder="Enter {{ filterTypes[filterType] }}" >
+      </mat-form-field>
+      <mat-form-field *ngSwitchCase="'dueDate'">
+        <input matInput [matDatepicker]="startDueDatePicker" placeholder="Due Date" [min]="currentDate">
+        <mat-datepicker-toggle matSuffix [for]="startDueDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #startDueDatePicker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field *ngSwitchCase="'labelCode'">
+        <mat-label>Select {{ filterTypes[filterType] }}</mat-label>
+        <mat-select (selectionChange)="applyFilter($event, filterType)">
+          <mat-option *ngFor="let label of labels" [value]="label.labelCode">
+            {{ label.labelValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field *ngSwitchCase="'statusCode'">
+        <mat-label>Select {{ filterTypes[filterType] }}</mat-label>
+        <mat-select (selectionChange)="applyFilter($event, filterType)">
+          <mat-option *ngFor="let status of statuses" [value]="status.statusCode">
+            {{ status.statusValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
   <div class="row" id="task-list">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
       <ng-container matColumnDef="taskName">

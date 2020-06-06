@@ -23,6 +23,8 @@ export class TasksComponent implements OnInit {
   displayedColumns: string[];
   labels: Label[];
   statuses: Status[];
+  filterType: string = "taskName";
+  filterTypes: any;
   constructor(private taskService: TaskService) { 
     this.dataSource = new MatTableDataSource<Task>();
     this.displayedColumns = ['taskName', 'labelCode', 'dueDate', 'statusCode'];
@@ -37,6 +39,12 @@ export class TasksComponent implements OnInit {
       { statusCode: 1, statusValue: 'In-Progress' },
       { statusCode: 2, statusValue: 'Completed' }
     ];
+    this.filterTypes = {
+      'taskName': 'Task Name',
+      'dueDate': 'Due Date',
+      'labelCode': 'Label',
+      'statusCode': 'Status'
+    };
   }
 
   ngOnInit() {
@@ -138,4 +146,21 @@ export class TasksComponent implements OnInit {
     return taskList;
   }
 
-}
+  applyFilter(event: Event, filterType: string) {
+    // console.log('app-task: filter:', filterType, event);
+    let filterValue: string = "";
+    if(filterType == 'taskName') 
+      filterValue = (event.target as HTMLInputElement).value;
+    else if(filterType == 'labelCode' || filterType == 'statusCode')
+      filterValue += event['value'] as string;
+    // console.log('app-task: filter:', filterType, filterValue);
+
+    this.dataSource.filterPredicate = (data: Task, filter: string) => {
+      if(filterType == 'taskName')
+        return data[filterType].indexOf(filter) != -1;
+      else if(filterType == 'labelCode' || filterType == 'statusCode')
+        return data[filterType].toString()===filter;
+    };
+    this.dataSource.filter = filterValue;
+  }
+} 
