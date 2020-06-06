@@ -148,18 +148,33 @@ export class TasksComponent implements OnInit {
 
   applyFilter(event: Event, filterType: string) {
     // console.log('app-task: filter:', filterType, event);
-    let filterValue: string = "";
+    let filterValue: any;
     if(filterType == 'taskName') 
       filterValue = (event.target as HTMLInputElement).value;
     else if(filterType == 'labelCode' || filterType == 'statusCode')
-      filterValue += event['value'] as string;
+      filterValue = event['value'];
+    else {
+      filterValue = event['value'];
+    }
     // console.log('app-task: filter:', filterType, filterValue);
 
-    this.dataSource.filterPredicate = (data: Task, filter: string) => {
+    this.dataSource.filterPredicate = (data: Task, filter) => {
+      // console.log('app-task: filterPredicate:', data, filter);
       if(filterType == 'taskName')
         return data[filterType].indexOf(filter) != -1;
       else if(filterType == 'labelCode' || filterType == 'statusCode')
         return data[filterType].toString()===filter;
+      else if(filterType == 'startDate' || filterType == 'endDate'){
+        let dueDateValue = new Date(data['dueDate']).getTime();
+        let filterDateValue = new Date(filter).getTime();
+        // console.log(filterType, dueDateValue, filterDateValue)
+        if(filterType == 'startDate')
+          return dueDateValue > filterDateValue;
+        else if(filterType == 'endDate') {
+          filterDateValue += 86400000;
+          return dueDateValue <= filterDateValue;
+        }
+      }
     };
     this.dataSource.filter = filterValue;
   }

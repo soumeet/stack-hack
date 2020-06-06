@@ -27,7 +27,7 @@
     </div>
   </div>
   <div class="row" id="task-search">
-    <div class="col-md-4 col-4">
+    <div class="col-md-4 col-3">
       <mat-form-field>
         <mat-label>Filter Type</mat-label>
         <mat-select [(ngModel)]="filterType"> 
@@ -37,15 +37,20 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div class="col-md-8 col-8" [ngSwitch]="filterType">
+    <div class="col-md-8 col-9" [ngSwitch]="filterType">
       <mat-form-field *ngSwitchCase="'taskName'">
         <mat-label>{{ filterTypes[filterType] }}</mat-label>
         <input matInput (keyup)="applyFilter($event, filterType)" placeholder="Enter {{ filterTypes[filterType] }}" >
       </mat-form-field>
-      <mat-form-field *ngSwitchCase="'dueDate'">
-        <input matInput [matDatepicker]="startDueDatePicker" placeholder="Due Date" [min]="currentDate">
+      <mat-form-field *ngSwitchCase="'dueDate'" id="field-startDate" class="col-md-6 col-6">
+        <input matInput [matDatepicker]="startDueDatePicker" placeholder="Start Date" (dateChange)="applyFilter($event, 'startDate')">
         <mat-datepicker-toggle matSuffix [for]="startDueDatePicker"></mat-datepicker-toggle>
         <mat-datepicker #startDueDatePicker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field *ngSwitchCase="'dueDate'" id="field-endDate" class="col-md-6 col-6">
+        <input matInput [matDatepicker]="endDueDatePicker" placeholder="End Date" (dateChange)="applyFilter($event, 'endDate')">
+        <mat-datepicker-toggle matSuffix [for]="endDueDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #endDueDatePicker></mat-datepicker>
       </mat-form-field>
       <mat-form-field *ngSwitchCase="'labelCode'">
         <mat-label>Select {{ filterTypes[filterType] }}</mat-label>
