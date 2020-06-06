@@ -9,19 +9,20 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
 import { MatTableModule } from '@angular/material/table';
+import { MatSelectModule } from '@angular/material/select';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TasksComponent } from './tasks/tasks.component';
-import { TasksAddComponent } from './tasks/tasks-add/tasks-add.component';
-import { TasksListComponent } from './tasks/tasks-list/tasks-list.component';
+import { LabelPipe } from './pipes/label.pipe';
+import { StatusPipe } from './pipes/status.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     TasksComponent,
-    TasksAddComponent,
-    TasksListComponent
+    LabelPipe,
+    StatusPipe
   ],
   imports: [
     BrowserModule,
@@ -33,7 +34,8 @@ import { TasksListComponent } from './tasks/tasks-list/tasks-list.component';
     MatButtonModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatTableModule
+    MatTableModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

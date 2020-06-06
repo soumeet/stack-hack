@@ -8,9 +8,11 @@ public class TaskDTO {
 	private Integer taskId;
 	private String taskName;
 	private Date dueDate;
+	private Integer labelCode;
+	private Integer statusCode;
 	private Timestamp tCreated;
 	private Timestamp tUpdated;
-	
+
 	public TaskDTO() {
 	}
 
@@ -38,6 +40,22 @@ public class TaskDTO {
 		this.dueDate = dueDate;
 	}
 
+	public Integer getLabelCode() {
+		return labelCode;
+	}
+
+	public void setLabelCode(Integer labelCode) {
+		this.labelCode = labelCode;
+	}
+
+	public Integer getStatusCode() {
+		return statusCode;
+	}
+
+	public void setStatusCode(Integer statusCode) {
+		this.statusCode = statusCode;
+	}
+
 	public Timestamp gettCreated() {
 		return tCreated;
 	}
@@ -53,9 +71,10 @@ public class TaskDTO {
 	public void settUpdated(Timestamp tUpdated) {
 		this.tUpdated = tUpdated;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "{ taskId: " + taskId + ", taskName: " + taskName + ", dueDate: " + dueDate + " }";
+		return "{ taskId: " + taskId + ", taskName: " + taskName + ", dueDate: " + dueDate + ", labelCode: " + labelCode
+				+ ", statusCode: " + statusCode + " }";
 	}
 }

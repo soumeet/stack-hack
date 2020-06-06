@@ -30,6 +30,12 @@ public class Task implements Serializable {
 	@Column(name="due_date")
 	private Date dueDate;
 	
+	@Column(name="label_code")
+	private Integer labelCode;
+	
+	@Column(name="status_code")
+	private Integer statusCode;
+	
 	@Column(name="t_created", updatable=false)
 	@CreationTimestamp
 	private Timestamp tCreated;
@@ -60,6 +66,22 @@ public class Task implements Serializable {
 
 	public void setDueDate(Date dueDate) {
 		this.dueDate = dueDate;
+	}
+
+	public Integer getLabelCode() {
+		return labelCode;
+	}
+
+	public void setLabelCode(Integer labelCode) {
+		this.labelCode = labelCode;
+	}
+
+	public Integer getStatusCode() {
+		return statusCode;
+	}
+
+	public void setStatusCode(Integer statusCode) {
+		this.statusCode = statusCode;
 	}
 
 	public Timestamp gettCreated() {

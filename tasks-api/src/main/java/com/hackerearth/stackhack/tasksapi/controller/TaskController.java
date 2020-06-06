@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hackerearth.stackhack.tasksapi.dto.AddTaskDTO;
 import com.hackerearth.stackhack.tasksapi.dto.TaskDTO;
+import com.hackerearth.stackhack.tasksapi.dto.UpdateTaskDTO;
 import com.hackerearth.stackhack.tasksapi.entity.Task;
 import com.hackerearth.stackhack.tasksapi.mapper.TaskMapper;
 import com.hackerearth.stackhack.tasksapi.repository.TaskRepository;
@@ -45,13 +46,13 @@ public class TaskController {
 		return taskList;
 	}
 	
-	/*@GetMapping(path="/{taskId}", produces="application/json")
+	@GetMapping(path="/id/{taskId}", produces="application/json")
 	public TaskDTO getTask(@PathVariable("taskId") Integer taskId){
 		log.info("getTask: taskId: " + taskId);
 		Task task = taskRepository.getOne(taskId);
 		log.info("getTask: task: " + task.toString());
 		return taskMapper.map(task);
-	}*/
+	}
 	
 	@PostMapping(path="/add", produces="application/json")
 	public TaskDTO addTask(@RequestBody AddTaskDTO addTaskDTO) {
@@ -63,4 +64,14 @@ public class TaskController {
 		return taskDTO;
 	}
 	
+	@PostMapping(path="/update", produces="application/json")
+	public TaskDTO updateTask(@RequestBody UpdateTaskDTO updateTaskDTO) {
+		log.info("updateTask: " + updateTaskDTO);
+		Task task = taskRepository.getOne(updateTaskDTO.getTaskId());
+		task.setStatusCode(updateTaskDTO.getStatusCode());
+		task = taskRepository.save(task);
+		TaskDTO taskDTO = taskMapper.map(task);
+		log.info("updateTask: updated " + taskDTO);
+		return taskDTO;
+	}
 }
