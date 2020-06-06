@@ -16,13 +16,17 @@ import { AppComponent } from './app.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { LabelPipe } from './pipes/label.pipe';
 import { StatusPipe } from './pipes/status.pipe';
+import { HeaderComponent } from './header/header.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TasksComponent,
     LabelPipe,
-    StatusPipe
+    StatusPipe,
+    HeaderComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
