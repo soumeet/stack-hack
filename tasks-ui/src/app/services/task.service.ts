@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class TaskService {
 
-  contextPath = environment.baseUrl;
+  contextPath = environment.taskUrl;
   constructor(private http: HttpClient) { }
 
   getTasks() {

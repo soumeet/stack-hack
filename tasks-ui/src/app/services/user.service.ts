@@ -11,23 +11,21 @@ export class UserService {
   contextPath = environment.userUrl;
   constructor(private http: HttpClient) { }
 
-  getUsers() {
+  getUsernames() {
     let url = this.contextPath + 'all';
     console.log('task.service:', url);
     return this.http.get(url);
   }
 
+  getUser(user: User) {
+    let url = this.contextPath + 'get';
+    console.log('task.service:', url);
+    return this.http.post(url, user);
+  }
+
   addUser(newUser: User) {
-    let result: any;
     let url = this.contextPath + 'add';
     console.log('task.service:', url);
     return this.http.post(url, newUser);
-  }
-
-  updateUser(updateUser: User) {
-    let result: any;
-    let url = this.contextPath + 'update';
-    console.log('task.service:', url);
-    return this.http.post(url, updateUser);
   }
 }
