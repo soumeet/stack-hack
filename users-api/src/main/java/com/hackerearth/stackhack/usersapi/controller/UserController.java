@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hackerearth.stackhack.usersapi.dto.AddUserDTO;
 import com.hackerearth.stackhack.usersapi.dto.UserDTO;
+import com.hackerearth.stackhack.usersapi.dto.UserResponseDTO;
 import com.hackerearth.stackhack.usersapi.entity.User;
 //import com.hackerearth.stackhack.usersapi.dto.UserDTO;
 //import com.hackerearth.stackhack.usersapi.dto.UpdateUserDTO;
@@ -49,36 +50,53 @@ public class UserController {
 		return userList;
 	}
 	
-	@GetMapping(path="/id/{userId}", produces="application/json")
-	public UserDTO getUser(@PathVariable("userId") Integer userId){
-		log.info("getUser: userId: " + userId);
-		User user = userRepository.getOne(userId);
-		log.info("getUser: user: " + user.toString());
-		return userMapper.map(user);
-	}
-	
-	@PostMapping(path="/get", produces="application/json")
-	public UserDTO getUser(@RequestBody AddUserDTO userDTORequest){
-		log.info("getUser: user: " + userDTORequest);
-		UserDTO userDTOResponse = null;
+	@PostMapping(path="/authenticate", produces="application/json")
+	public Integer authenticateUser(@RequestBody AddUserDTO userDTORequest){
+		log.info("authenticateUser: user: " + userDTORequest);
+		Integer response = 0;
 		User user = userRepository.getByUserName(userDTORequest.getUserName());
 		if(user != null)
 			if(user.getPassword().equals(userDTORequest.getPassword())) {
-				userDTOResponse = userMapper.map(user);
-				log.info("getUser: user-found: " + userDTOResponse.toString());
-				return userDTOResponse;
+				response = 2;
+				log.info("authenticateUser: respose: " + response);
+				return response;
 			}
-		log.info("getUser: user-found: " + userDTOResponse);
-		return userDTOResponse;
+			else
+				response = 1;
+		log.info("authenticateUser: respose: " + response);
+		return response;
+	}
+	
+	@GetMapping(path="/id/{userId}", produces="application/json")
+	public UserResponseDTO getUser(@PathVariable("userId") Integer userId){
+		log.info("getUser: userId: " + userId);
+		User user = userRepository.getOne(userId);
+		log.info("getUser: user: " + user.toString());
+		return userMapper.mapReponse(user);
+	}
+	
+	@PostMapping(path="/get", produces="application/json")
+	public UserResponseDTO getUser(@RequestBody AddUserDTO userDTORequest){
+		log.info("getUser: user: " + userDTORequest);
+		UserResponseDTO userResponseDTO = null;
+		User user = userRepository.getByUserName(userDTORequest.getUserName());
+		if(user != null)
+			if(user.getPassword().equals(userDTORequest.getPassword())) {
+				userResponseDTO = userMapper.mapReponse(user);
+				log.info("getUser: user-found: " + userResponseDTO.toString());
+				return userResponseDTO;
+			}
+		log.info("getUser: user-found: " + userResponseDTO);
+		return userResponseDTO;
 	}
 	
 	@PostMapping(path="/add", produces="application/json")
-	public UserDTO addUser(@RequestBody AddUserDTO addUserDTO) {
+	public UserResponseDTO addUser(@RequestBody AddUserDTO addUserDTO) {
 		log.info("addUser: " + addUserDTO);
 		User user = userMapper.map(addUserDTO);
 		user = userRepository.save(user);
-		UserDTO userDTO = userMapper.map(user);
-		log.info("addUser: added " + userDTO);
-		return userDTO;
+		UserResponseDTO userResponseDTO = userMapper.mapReponse(user);
+		log.info("addUser: added " + userResponseDTO);
+		return userResponseDTO;
 	}
 }

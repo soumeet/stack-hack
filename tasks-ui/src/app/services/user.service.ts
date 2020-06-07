@@ -28,4 +28,10 @@ export class UserService {
     console.log('task.service:', url);
     return this.http.post(url, newUser);
   }
+
+  authenticateUser(user: User) {
+    let url = this.contextPath + 'authenticate';
+    console.log('task.service:', url);
+    return this.http.post(url, user);
+  }
 }
