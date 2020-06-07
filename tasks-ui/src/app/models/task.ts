@@ -4,5 +4,5 @@ export interface Task {
     dueDate: Date;
     labelCode: number;
     statusCode: number;
-    // userId: number;
+    userId: number;
 }

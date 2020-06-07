@@ -23,7 +23,13 @@ public class TaskMapper {
 	}
 	
 	public Task map(AddTaskDTO addTaskDTO) {
-		Task task = modelMapper.map(addTaskDTO, Task.class);
+//		Task task = modelMapper.map(addTaskDTO, Task.class);
+		Task task = new Task();
+		task.setDueDate(addTaskDTO.getDueDate());
+		task.setLabelCode(addTaskDTO.getLabelCode());
+		task.setStatusCode(addTaskDTO.getStatusCode());
+		task.setTaskName(addTaskDTO.getTaskName());
+		task.setUserId(addTaskDTO.getUserId());
 		return task;
 	}
 }

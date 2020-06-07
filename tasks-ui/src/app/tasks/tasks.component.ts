@@ -4,6 +4,8 @@ import { Task } from '../models/task';
 import { MatTableDataSource } from '@angular/material';
 import { Label } from '../models/label';
 import { Status } from '../models/status';
+import { AuthService } from '../services/auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-tasks',
@@ -12,6 +14,7 @@ import { Status } from '../models/status';
 })
 export class TasksComponent implements OnInit {
 
+  userId: number;
   currentDate: Date = new Date();
   taskNameInvalid: boolean = false;
   taskName: string = "";
@@ -25,7 +28,10 @@ export class TasksComponent implements OnInit {
   statuses: Status[];
   filterType: string = "taskName";
   filterTypes: any;
-  constructor(private taskService: TaskService) { 
+  constructor(
+    private taskService: TaskService,
+    private authService: AuthService
+  ) { 
     this.dataSource = new MatTableDataSource<Task>();
     this.displayedColumns = ['taskName', 'labelCode', 'dueDate', 'statusCode'];
     this.labels = [
@@ -45,10 +51,22 @@ export class TasksComponent implements OnInit {
       'labelCode': 'Label',
       'statusCode': 'Status'
     };
+    authService.isLoggedIn.subscribe(
+    res => {
+      // console.log(res);
+      let loggedIn = res as boolean;
+      if(loggedIn) {
+        let user = authService.loggedInUser;
+        this.userId = user.userId;
+      } 
+    },
+    err => {
+      console.error(err);
+    });
   }
 
   ngOnInit() {
-    this.taskService.getTasks().subscribe(
+    this.taskService.getTasks(this.userId).subscribe(
       res => {
         // console.log('getTasks(): ', res);
         this.taskList = res as Task[];
@@ -69,7 +87,8 @@ export class TasksComponent implements OnInit {
       taskName: this.taskName,
       dueDate: this.dueDate,
       labelCode: this.labelCode,
-      statusCode: 0
+      statusCode: 0,
+      userId: this.userId
     };
     if(this.validate(newTask))
       this.save(newTask);

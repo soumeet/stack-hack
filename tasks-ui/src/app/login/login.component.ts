@@ -72,7 +72,7 @@ export class LoginComponent implements OnInit {
           this.loginForm.controls.password.setErrors({'wrong': true});
         } else if(responseCode == 2) {
           this.requestUserDetails(loginUser);
-          this.loginForm.reset();
+          // this.loginForm.reset();
         }
       },
       err => {
@@ -85,12 +85,12 @@ export class LoginComponent implements OnInit {
     // console.log('app-login: requestUserDetails()', loginUser);
     this.userService.getUser(loginUser).subscribe(
       res => {
-        console.log(res);
+        // console.log(res);
         let loggedInUser = res as User;
         console.log('app-login requestUserDetails: loggedIn userId:', loggedInUser.userId);
         // sessionStorage.setItem('USER', JSON.stringify(loggedInUser));
         this.authService.saveUser(loggedInUser);
-        this.router.navigateByUrl('/tasks');
+        this.router.navigate(['tasks']);
       },
       err => {
         console.error(err);

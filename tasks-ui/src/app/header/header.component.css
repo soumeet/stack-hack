@@ -1,0 +1,17 @@
+/* .row {
+    margin-right: 0px;
+    margin-left: 0px;
+    width: 100%;
+} */
+.title-logout {
+    /* padding: 0 14px; */
+    margin-right: 10px;
+}
+
+.title-spacer {
+    flex: 1 1 auto;
+}
+
+.title-username {
+    margin-right: 10px;
+}

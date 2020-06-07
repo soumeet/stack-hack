@@ -9,6 +9,7 @@ public class AddTaskDTO {
 	private Date dueDate;
 	private Integer labelCode;
 	private Integer statusCode;
+	private Integer userId;
 	
 	public AddTaskDTO() {
 	}
@@ -45,9 +46,17 @@ public class AddTaskDTO {
 		this.statusCode = statusCode;
 	}
 
+	public Integer getUserId() {
+		return userId;
+	}
+	
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
 	@Override
 	public String toString() {
 		return "{ taskName: " + taskName + ", dueDate: " + dueDate + ", labelCode: " + labelCode + ", statusCode: "
-				+ statusCode + " }";
+				+ statusCode + ", userId: " + userId+ " }";
 	}
 }

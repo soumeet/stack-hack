@@ -9,25 +9,26 @@ export class AuthService {
   loggedIn: BehaviorSubject<boolean> 
   constructor() {
     this.loggedIn = new BehaviorSubject<boolean>(false);
-    if(sessionStorage.getItem('USER') != null)
+    if(this.loggedInUser != null)
       this.loggedIn.next(true);
   }
 
   isAuthenticated(): boolean {
     let res: boolean = false;
-    const user = sessionStorage.getItem('USER');
+    const user = this.loggedIn;
     if(user != null)
       res = true;
     return res;
   }
 
   saveUser(user: User) {
-    console.log('auth-service: saveUser()', user);
+    // console.log('auth-service: saveUser()', user);
     sessionStorage.setItem('USER', JSON.stringify(user));
+    this.loggedIn.next(true);
   }
 
   removeUser() {
-    console.log('auth-service: removeUser()');
+    // console.log('auth-service: removeUser()');
     sessionStorage.clear();
     this.loggedIn.next(false);
   }
@@ -37,7 +38,7 @@ export class AuthService {
   }
 
   get loggedInUser(): User {
-    console.log('auth-service: getUser()');
+    // console.log('auth-service: getUser()');
     let user = JSON.parse(sessionStorage.getItem('USER'));
     return user;
   }

@@ -43,6 +43,9 @@ public class Task implements Serializable {
 	@Column(name="t_updated")
 	@UpdateTimestamp
 	private Timestamp tUpdated;
+	
+	@Column(name="user_id")
+	private Integer userId;
 
 	public Integer getTaskId() {
 		return taskId;
@@ -98,5 +101,13 @@ public class Task implements Serializable {
 
 	public void settUpdated(Timestamp tUpdated) {
 		this.tUpdated = tUpdated;
+	}
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 }

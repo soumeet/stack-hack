@@ -12,6 +12,7 @@ public class TaskDTO {
 	private Integer statusCode;
 	private Timestamp tCreated;
 	private Timestamp tUpdated;
+	private Integer userId;
 
 	public TaskDTO() {
 	}
@@ -72,9 +73,17 @@ public class TaskDTO {
 		this.tUpdated = tUpdated;
 	}
 
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
 	@Override
 	public String toString() {
 		return "{ taskId: " + taskId + ", taskName: " + taskName + ", dueDate: " + dueDate + ", labelCode: " + labelCode
-				+ ", statusCode: " + statusCode + " }";
+				+ ", statusCode: " + statusCode + ", userId: " + userId + " }";
 	}
 }
