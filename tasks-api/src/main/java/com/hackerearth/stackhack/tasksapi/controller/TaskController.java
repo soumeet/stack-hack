@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hackerearth.stackhack.tasksapi.dto.AddTaskDTO;
@@ -21,7 +22,7 @@ import com.hackerearth.stackhack.tasksapi.mapper.TaskMapper;
 import com.hackerearth.stackhack.tasksapi.repository.TaskRepository;
 
 @RestController
-@RequestMapping(path="/task")
+//@RequestMapping(path="/task")
 public class TaskController {
 	private static final Logger log = LogManager.getLogger(TaskController.class);
 	@Autowired
@@ -37,8 +38,9 @@ public class TaskController {
 	}
 	
 	@GetMapping(path="/all")
-	public List<TaskDTO> getAllTask(){
-		List<TaskDTO> taskList = taskRepository.findAll()
+	public List<TaskDTO> getAllTask(@RequestParam("userId") Integer userId){
+		log.info("getAllTask: userId: " + userId);
+		List<TaskDTO> taskList = taskRepository.getTasksByUserId(userId)
 				.stream()
 				.map(task -> taskMapper.map(task))
 				.collect(Collectors.toList());

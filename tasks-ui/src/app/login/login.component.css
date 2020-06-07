@@ -1,0 +1,19 @@
+.container {
+    margin-top: 15%;
+    /* height: 100%; */
+}
+.row {
+    margin-right: 0px;
+    margin-left: 0px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+#input-username {
+    width: 100%;
+}
+#input-password {
+    width: 100%;
+}
+#button-login, #button-register {
+    width: 100%;
+}

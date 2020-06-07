@@ -1,0 +1,14 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>{{ appTitle }}</span>
+    <span class="title-spacer"></span>
+    <div *ngIf="isLoggedIn | async">
+      <span class="title-username">{{ userName }}</span>
+      <button mat-icon-button color="basic" aria-label="Logout" (click)="logout()">
+        <mat-icon class="title-logout" aria-hidden="false" aria-label="Logout" (click)="logout()">
+          power_settings_new
+        </mat-icon>
+      </button>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>

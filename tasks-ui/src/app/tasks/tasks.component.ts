@@ -4,6 +4,8 @@ import { Task } from '../models/task';
 import { MatTableDataSource } from '@angular/material';
 import { Label } from '../models/label';
 import { Status } from '../models/status';
+import { AuthService } from '../services/auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-tasks',
@@ -12,6 +14,7 @@ import { Status } from '../models/status';
 })
 export class TasksComponent implements OnInit {
 
+  userId: number;
   currentDate: Date = new Date();
   taskNameInvalid: boolean = false;
   taskName: string = "";
@@ -23,7 +26,12 @@ export class TasksComponent implements OnInit {
   displayedColumns: string[];
   labels: Label[];
   statuses: Status[];
-  constructor(private taskService: TaskService) { 
+  filterType: string = "taskName";
+  filterTypes: any;
+  constructor(
+    private taskService: TaskService,
+    private authService: AuthService
+  ) { 
     this.dataSource = new MatTableDataSource<Task>();
     this.displayedColumns = ['taskName', 'labelCode', 'dueDate', 'statusCode'];
     this.labels = [
@@ -37,10 +45,28 @@ export class TasksComponent implements OnInit {
       { statusCode: 1, statusValue: 'In-Progress' },
       { statusCode: 2, statusValue: 'Completed' }
     ];
+    this.filterTypes = {
+      'taskName': 'Task Name',
+      'dueDate': 'Due Date',
+      'labelCode': 'Label',
+      'statusCode': 'Status'
+    };
+    authService.isLoggedIn.subscribe(
+    res => {
+      // console.log(res);
+      let loggedIn = res as boolean;
+      if(loggedIn) {
+        let user = authService.loggedInUser;
+        this.userId = user.userId;
+      } 
+    },
+    err => {
+      console.error(err);
+    });
   }
 
   ngOnInit() {
-    this.taskService.getTasks().subscribe(
+    this.taskService.getTasks(this.userId).subscribe(
       res => {
         // console.log('getTasks(): ', res);
         this.taskList = res as Task[];
@@ -61,7 +87,8 @@ export class TasksComponent implements OnInit {
       taskName: this.taskName,
       dueDate: this.dueDate,
       labelCode: this.labelCode,
-      statusCode: 0
+      statusCode: 0,
+      userId: this.userId
     };
     if(this.validate(newTask))
       this.save(newTask);
@@ -138,4 +165,36 @@ export class TasksComponent implements OnInit {
     return taskList;
   }
 
-}
+  applyFilter(event: Event, filterType: string) {
+    console.log('app-task: filter:', filterType, event);
+    let filterValue: any;
+    if(filterType == 'taskName') 
+      filterValue = (event.target as HTMLInputElement).value;
+    else if(filterType == 'labelCode' || filterType == 'statusCode')
+      filterValue = event['value'];
+    else {
+      filterValue = event['value'];
+    }
+    // console.log('app-task: filter:', filterType, filterValue);
+
+    this.dataSource.filterPredicate = (data: Task, filter) => {
+      // console.log('app-task: filterPredicate:', data, filter);
+      if(filterType == 'taskName')
+        return data[filterType].indexOf(filter) != -1;
+      else if(filterType == 'labelCode' || filterType == 'statusCode')
+        return data[filterType].toString()===filter;
+      else if(filterType == 'startDate' || filterType == 'endDate'){
+        let dueDateValue = new Date(data['dueDate']).getTime();
+        let filterDateValue = new Date(filter).getTime();
+        // console.log(filterType, dueDateValue, filterDateValue)
+        if(filterType == 'startDate')
+          return dueDateValue > filterDateValue;
+        else if(filterType == 'endDate') {
+          filterDateValue += 86400000;
+          return dueDateValue <= filterDateValue;
+        }
+      }
+    };
+    this.dataSource.filter = filterValue;
+  }
+} 

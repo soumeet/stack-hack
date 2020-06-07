@@ -9,11 +9,11 @@ import { Observable } from 'rxjs';
 })
 export class TaskService {
 
-  contextPath = environment.baseUrl;
+  contextPath = environment.taskUrl;
   constructor(private http: HttpClient) { }
 
-  getTasks() {
-    let url = this.contextPath + 'all';
+  getTasks(userId: number) {
+    let url = this.contextPath + 'all?userId=' + userId;
     console.log('task.service:', url);
     return this.http.get(url);
   }

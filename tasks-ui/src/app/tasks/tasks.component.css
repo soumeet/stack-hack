@@ -3,7 +3,7 @@
     width: 90%;
 }
   
-.col-8, .col-6, .col-4, .col-2 {
+.col-9, .col-8, .col-6, .col-4, .col-3, .col-2 {
     padding-right: 5px;
     padding-left: 5px;
 }
@@ -79,3 +79,11 @@ td.mat-cell,  th.mat-header-cell {
 tr.mat-header-row {
     height: 48px;
 }
+
+.mat-form-field {
+    display: block;
+}
+
+#field-startDate, #field-endDate {
+    display: inline-block;
+} 
