@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { User } from '../models/user';
 import { FormGroup, FormBuilder, Validators, FormControl, ValidationErrors, ValidatorFn, AbstractControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -12,7 +13,9 @@ export class RegisterComponent implements OnInit {
 
   userForm: FormGroup;
   userList: string[];
-  constructor(private formBuilder: FormBuilder,
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
     private userService: UserService) { 
     this.userForm =  this.formBuilder.group({
       userName: new FormControl('', [
@@ -29,7 +32,6 @@ export class RegisterComponent implements OnInit {
         this.checkMatch()
       ])
     });
-    // this.userForm.controls.confirmPassword.setValidators(this.checkMatch());
   }
 
   ngOnInit() {
@@ -45,7 +47,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(newUserForm: FormGroup) {
-    console.log('app-register: onSubmit', newUserForm);
+    // console.log('app-register: onSubmit', newUserForm);
     let newUser: User = {
       userId: null,
       userName: newUserForm.controls.userName.value,
@@ -59,7 +61,7 @@ export class RegisterComponent implements OnInit {
   }
 
   validate(newUser: User): boolean {
-    console.log('app-register: validate', newUser);
+    // console.log('app-register: validate', newUser);
     let res: boolean = false;
     if(newUser.password != '' && newUser.userName != '')
         res = true;
@@ -67,13 +69,15 @@ export class RegisterComponent implements OnInit {
   }
 
   save(newUser: User) {
-    console.log('app-register: save', newUser);
+    // console.log('app-register: save', newUser);
     this.userService.addUser(newUser).subscribe(
       res => {
         // console.log('response', res);
         let addedUser = res as User;
         console.log('app-user save: added userId:', addedUser.userId);
-        this.userForm.reset();
+        // this.userForm.reset();
+        sessionStorage.setItem('USER', JSON.stringify(addedUser));
+        this.router.navigateByUrl('/tasks');
       }   
     );
   }
