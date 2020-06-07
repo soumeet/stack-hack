@@ -3,6 +3,7 @@ import { UserService } from '../services/user.service';
 import { User } from '../models/user';
 import { FormGroup, FormBuilder, Validators, FormControl, ValidationErrors, ValidatorFn, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -16,7 +17,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private userService: UserService) { 
+    private userService: UserService,
+    private authService: AuthService) { 
     this.userForm =  this.formBuilder.group({
       userName: new FormControl('', [
         Validators.required, 
@@ -76,7 +78,8 @@ export class RegisterComponent implements OnInit {
         let addedUser = res as User;
         console.log('app-user save: added userId:', addedUser.userId);
         // this.userForm.reset();
-        sessionStorage.setItem('USER', JSON.stringify(addedUser));
+        // sessionStorage.setItem('USER', JSON.stringify(addedUser));
+        this.authService.saveUser(addedUser);
         this.router.navigateByUrl('/tasks');
       }   
     );

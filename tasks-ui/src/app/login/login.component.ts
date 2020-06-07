@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { User } from '../models/user';
 import { UserService } from '../services/user.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private authService: AuthService
   ) {
     this.loginForm =  this.formBuilder.group({
       userName: new FormControl('', [
@@ -86,7 +88,8 @@ export class LoginComponent implements OnInit {
         console.log(res);
         let loggedInUser = res as User;
         console.log('app-login requestUserDetails: loggedIn userId:', loggedInUser.userId);
-        sessionStorage.setItem('USER', JSON.stringify(loggedInUser));
+        // sessionStorage.setItem('USER', JSON.stringify(loggedInUser));
+        this.authService.saveUser(loggedInUser);
         this.router.navigateByUrl('/tasks');
       },
       err => {
