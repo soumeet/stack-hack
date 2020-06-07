@@ -166,7 +166,7 @@ export class TasksComponent implements OnInit {
   }
 
   applyFilter(event: Event, filterType: string) {
-    // console.log('app-task: filter:', filterType, event);
+    console.log('app-task: filter:', filterType, event);
     let filterValue: any;
     if(filterType == 'taskName') 
       filterValue = (event.target as HTMLInputElement).value;

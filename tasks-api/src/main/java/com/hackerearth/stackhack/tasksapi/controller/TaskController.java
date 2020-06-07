@@ -22,7 +22,7 @@ import com.hackerearth.stackhack.tasksapi.mapper.TaskMapper;
 import com.hackerearth.stackhack.tasksapi.repository.TaskRepository;
 
 @RestController
-@RequestMapping(path="/task")
+//@RequestMapping(path="/task")
 public class TaskController {
 	private static final Logger log = LogManager.getLogger(TaskController.class);
 	@Autowired

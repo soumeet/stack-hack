@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  taskUrl: 'http://localhost:8081/task/',
+  taskUrl: 'http://localhost:8080/task/',
   userUrl:'http://localhost:8080/user/'
 };
 
