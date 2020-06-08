@@ -166,12 +166,12 @@ export class TasksComponent implements OnInit {
   }
 
   applyFilter(event: Event, filterType: string) {
-    console.log('app-task: filter:', filterType, event);
+    // console.log('app-task: filter:', filterType, event);
     let filterValue: any;
     if(filterType == 'taskName') 
       filterValue = (event.target as HTMLInputElement).value;
     else if(filterType == 'labelCode' || filterType == 'statusCode')
-      filterValue = event['value'];
+      filterValue = "" + event['value'];
     else {
       filterValue = event['value'];
     }
@@ -182,7 +182,7 @@ export class TasksComponent implements OnInit {
       if(filterType == 'taskName')
         return data[filterType].indexOf(filter) != -1;
       else if(filterType == 'labelCode' || filterType == 'statusCode')
-        return data[filterType].toString()===filter;
+        return data[filterType].toString() == filter;
       else if(filterType == 'startDate' || filterType == 'endDate'){
         let dueDateValue = new Date(data['dueDate']).getTime();
         let filterDateValue = new Date(filter).getTime();
