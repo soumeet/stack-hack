@@ -11,7 +11,9 @@
 .title-spacer {
     flex: 1 1 auto;
 }
-
+.title-name {
+    margin-left: 10px;
+}
 .title-username {
     margin-right: 10px;
 }
